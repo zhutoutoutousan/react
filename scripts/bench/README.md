@@ -1,41 +1,140 @@
-# React Benchmarking
+# React Benchmarking System
 
-## Commands
+This directory contains the benchmarking system for React, which helps measure and analyze the performance of React components and features under various conditions.
 
-In most cases, the only two commands you might want to use are:
+## Architecture
 
-- `yarn start`
-- `yarn --cwd=../../ build react/index,react-dom/index --type=UMD_PROD && yarn start --skip-build`
+```mermaid
+graph TD
+    A[bench/] --> B[runner.js]
+    A --> C[server.js]
+    A --> D[stats.js]
+    A --> E[build.js]
+    A --> F[benchmark.js]
+    A --> G[benchmarks/]
+    
+    B --> H[Benchmark Runner]
+    C --> I[Test Server]
+    D --> J[Statistics]
+    E --> K[Build System]
+    F --> L[Benchmark Core]
+    G --> M[Test Cases]
+```
 
-The first command will run benchmarks with all the default settings. A local and remote build will occur on React and ReactDOM UMD bundles, both local and remote repos will be run against all benchmarks.
+## Benchmark Categories
 
-The second command will run all benchmarks but skip the build process. This is useful for when doing local performance tweaking and the remote repo has already had its bundles built. Both local and remote repos will be run against all benchmarks with this command too.
+```mermaid
+graph LR
+    A[Benchmarks] --> B[Render Performance]
+    A --> C[Update Performance]
+    A --> D[Memory Usage]
+    A --> E[Event Handling]
+    A --> F[State Management]
+```
 
-The other commands are as follows:
+## Key Components
+
+### 1. Benchmark Runner (`runner.js`)
+- Executes benchmark suites
+- Manages test iterations
+- Handles result collection
+- Controls test environment
+
+### 2. Test Server (`server.js`)
+- Serves benchmark pages
+- Manages test scenarios
+- Handles client communication
+- Provides test isolation
+
+### 3. Statistics (`stats.js`)
+- Performance metrics collection
+- Statistical analysis
+- Result visualization
+- Performance regression detection
+
+### 4. Build System (`build.js`)
+- Benchmark bundle creation
+- Test environment setup
+- Dependency management
+- Build optimization
+
+## Benchmark Process
+
+```mermaid
+sequenceDiagram
+    participant Runner
+    participant Server
+    participant Benchmark
+    participant Stats
+    
+    Runner->>Server: Start test server
+    Server->>Benchmark: Execute test
+    Benchmark->>Stats: Collect metrics
+    Stats->>Runner: Report results
+```
+
+## Usage
+
+### Running Benchmarks
 
 ```bash
-# will compare local repo vs remote merge base repo
-yarn start
+# Run all benchmarks
+yarn bench
 
-# will compare local repo vs remote merge base repo
-# this can significantly improve bench times due to no build
-yarn start --skip-build
+# Run specific benchmark
+yarn bench --benchmark=render
 
-# will only build and run local repo against benchmarks (no remote values will be shown)
-yarn start --local
+# Run with custom iterations
+yarn bench --iterations=1000
 
-# will only build and run remote merge base repo against benchmarks (no local values will be shown)
-yarn start --remote
-
-# will only build and run remote main repo against benchmarks
-yarn start --remote=main
-
-# same as "yarn start"
-yarn start --remote --local
-
-# runs benchmarks with Chrome in headless mode
-yarn start --headless
-
-# runs only specific string matching benchmarks
-yarn start --benchmark=hacker
+# Run in CI mode
+yarn bench --ci
 ```
+
+### Benchmark Configuration
+
+Each benchmark can be configured through command-line options:
+
+- `--benchmark`: Specific benchmark to run
+- `--iterations`: Number of test iterations
+- `--warmup`: Warmup iterations
+- `--ci`: CI mode with stricter checks
+
+## Benchmark Types
+
+1. **Render Performance**
+   - Initial render time
+   - Component mount time
+   - Tree reconciliation
+   - DOM operations
+
+2. **Update Performance**
+   - State updates
+   - Props changes
+   - Context updates
+   - Event handling
+
+3. **Memory Usage**
+   - Heap allocation
+   - Garbage collection
+   - Memory leaks
+   - Object retention
+
+## Results Analysis
+
+The benchmarking system provides:
+
+- Performance metrics
+- Statistical significance
+- Regression detection
+- Comparative analysis
+- Visualization tools
+
+## Contributing
+
+When adding new benchmarks:
+
+1. Follow existing benchmark patterns
+2. Include proper setup/teardown
+3. Add statistical validation
+4. Update documentation

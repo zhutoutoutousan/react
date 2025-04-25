@@ -19,6 +19,7 @@
     "prompt-promise": "^1.0.3",
     "puppeteer": "^1.11.0",
     "pushstate-server": "^3.0.1",
+    "react-release-script": "file:",
     "semver": "^5.4.1"
   }
 }

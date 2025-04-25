@@ -11,6 +11,7 @@
     "inquirer": "^8.1.2",
     "progress-estimator": "^0.2.1",
     "prompt-promise": "^1.0.3",
+    "react-devtools-release-script": "file:",
     "semver": "^5.4.1"
   }
 }

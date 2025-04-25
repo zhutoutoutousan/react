@@ -22,5 +22,8 @@
     "README.md",
     "index.js",
     "cjs/"
-  ]
+  ],
+  "dependencies": {
+    "react-is": "file:"
+  }
 }

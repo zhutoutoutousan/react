@@ -29,6 +29,7 @@
     "react": "^19.1.0"
   },
   "dependencies": {
+    "react-reconciler": "file:",
     "scheduler": "^0.26.0"
   }
 }

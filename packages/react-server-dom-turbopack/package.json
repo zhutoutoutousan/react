@@ -84,6 +84,7 @@
   },
   "dependencies": {
     "acorn-loose": "^8.3.0",
-    "neo-async": "^2.6.1"
+    "neo-async": "^2.6.1",
+    "react-server-dom-turbopack": "file:"
   }
 }

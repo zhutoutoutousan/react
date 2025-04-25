@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": "true",
   "license": "MIT",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build:frontend:copy-types": "cp src/*.d.ts dist/",
     "build:frontend:local": "cross-env NODE_ENV=development webpack --config webpack.config.frontend.js && yarn build:frontend:copy-types",
@@ -19,5 +21,8 @@
     "webpack": "^5.82.1",
     "webpack-cli": "^5.1.1",
     "workerize-loader": "^2.0.2"
+  },
+  "dependencies": {
+    "react-devtools-fusebox": "file:"
   }
 }

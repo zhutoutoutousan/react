@@ -2,7 +2,8 @@
   "private": true,
   "name": "webpack-alias-prod-fixture",
   "dependencies": {
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "webpack-alias-prod-fixture": "file:"
   },
   "scripts": {
     "build": "rm -f output.js && webpack --config config.js"

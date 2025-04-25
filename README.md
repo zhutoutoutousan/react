@@ -1,78 +1,272 @@
-# [React](https://react.dev/) &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/facebook/react/blob/main/LICENSE) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react) [![(Runtime) Build and Test](https://github.com/facebook/react/actions/workflows/runtime_build_and_test.yml/badge.svg)](https://github.com/facebook/react/actions/workflows/runtime_build_and_test.yml) [![(Compiler) TypeScript](https://github.com/facebook/react/actions/workflows/compiler_typescript.yml/badge.svg?branch=main)](https://github.com/facebook/react/actions/workflows/compiler_typescript.yml) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://legacy.reactjs.org/docs/how-to-contribute.html#your-first-pull-request)
+# React Source Code Explorer
 
-React is a JavaScript library for building user interfaces.
+Welcome to the React Source Code Explorer! This guide helps you understand React's source code architecture through interactive diagrams, code walkthroughs, and hands-on exercises.
 
-* **Declarative:** React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes. Declarative views make your code more predictable, simpler to understand, and easier to debug.
-* **Component-Based:** Build encapsulated components that manage their own state, then compose them to make complex UIs. Since component logic is written in JavaScript instead of templates, you can easily pass rich data through your app and keep the state out of the DOM.
-* **Learn Once, Write Anywhere:** We don't make assumptions about the rest of your technology stack, so you can develop new features in React without rewriting existing code. React can also render on the server using [Node](https://nodejs.org/en) and power mobile apps using [React Native](https://reactnative.dev/).
+## Project Overview
 
-[Learn how to use React in your project](https://react.dev/learn).
-
-## Installation
-
-React has been designed for gradual adoption from the start, and **you can use as little or as much React as you need**:
-
-* Use [Quick Start](https://react.dev/learn) to get a taste of React.
-* [Add React to an Existing Project](https://react.dev/learn/add-react-to-an-existing-project) to use as little or as much React as you need.
-* [Create a New React App](https://react.dev/learn/start-a-new-react-project) if you're looking for a powerful JavaScript toolchain.
-
-## Documentation
-
-You can find the React documentation [on the website](https://react.dev/).
-
-Check out the [Getting Started](https://react.dev/learn) page for a quick overview.
-
-The documentation is divided into several sections:
-
-* [Quick Start](https://react.dev/learn)
-* [Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
-* [Thinking in React](https://react.dev/learn/thinking-in-react)
-* [Installation](https://react.dev/learn/installation)
-* [Describing the UI](https://react.dev/learn/describing-the-ui)
-* [Adding Interactivity](https://react.dev/learn/adding-interactivity)
-* [Managing State](https://react.dev/learn/managing-state)
-* [Advanced Guides](https://react.dev/learn/escape-hatches)
-* [API Reference](https://react.dev/reference/react)
-* [Where to Get Support](https://react.dev/community)
-* [Contributing Guide](https://legacy.reactjs.org/docs/how-to-contribute.html)
-
-You can improve it by sending pull requests to [this repository](https://github.com/reactjs/react.dev).
-
-## Examples
-
-We have several examples [on the website](https://react.dev/). Here is the first one to get you started:
-
-```jsx
-import { createRoot } from 'react-dom/client';
-
-function HelloMessage({ name }) {
-  return <div>Hello {name}</div>;
-}
-
-const root = createRoot(document.getElementById('container'));
-root.render(<HelloMessage name="Taylor" />);
+```mermaid
+graph TD
+    A[React Codebase] --> B[Core Packages]
+    A --> C[Build Tools]
+    A --> D[Development Tools]
+    A --> E[Testing Tools]
+    A --> F[Documentation]
+    
+    B --> G[react/]
+    B --> H[react-dom/]
+    B --> I[react-reconciler/]
+    B --> J[scheduler/]
+    B --> K[react-is/]
+    B --> L[use-sync-external-store/]
+    
+    C --> M[scripts/rollup]
+    C --> N[scripts/babel]
+    C --> O[scripts/release]
+    
+    D --> P[scripts/devtools]
+    D --> Q[scripts/eslint]
+    D --> R[scripts/flow]
+    
+    E --> S[scripts/jest]
+    E --> T[scripts/bench]
+    E --> U[scripts/perf-counters]
 ```
 
-This example will render "Hello Taylor" into a container on the page.
+## Core Packages Documentation
 
-You'll notice that we used an HTML-like syntax; [we call it JSX](https://react.dev/learn#writing-markup-with-jsx). JSX is not required to use React, but it makes code more readable, and writing it feels like writing HTML.
+### React Core
+- [React Package](packages/react/README.md) - Core React APIs and Components
+  - Component System
+  - Hooks Architecture
+  - Event System
+  - Build Variants
+
+### Renderers
+- [React DOM](packages/react-dom/README.md) - DOM Renderer
+  - Client Rendering
+  - Server Rendering
+  - Hydration
+  - Event System
+
+### Core Infrastructure
+- [React Reconciler](packages/react-reconciler/README.md) - Reconciliation Algorithm
+  - Fiber Architecture
+  - Work Loop
+  - Priority System
+  - Effect System
+
+- [Scheduler](packages/scheduler/README.md) - Task Scheduling
+  - Priority Levels
+  - Time Slicing
+  - Task Queue
+  - Frame Management
+
+### Utilities
+- [React Is](packages/react-is/README.md) - Type Checking
+  - Element Validation
+  - Component Detection
+  - Context Checking
+  - Type System
+
+- [useSyncExternalStore](packages/use-sync-external-store/README.md) - External Store Integration
+  - Store Subscription
+  - State Synchronization
+  - Server Rendering
+  - Selection API
+
+## Interactive Learning
+
+Each package documentation includes interactive knowledge testing sections:
+
+### Example Quiz: Scheduler
+1. What is the main purpose of the scheduler?
+   - [ ] Memory management
+   - [x] Task prioritization
+   - [ ] State management
+   - [ ] Event handling
+
+### Example Quiz: React Is
+1. What is the main purpose of react-is?
+   - [ ] Component creation
+   - [x] Type checking
+   - [ ] State management
+   - [ ] Event handling
+
+### Example Quiz: useSyncExternalStore
+1. What is the main purpose of useSyncExternalStore?
+   - [ ] State management
+   - [x] External store sync
+   - [ ] Data fetching
+   - [ ] Event handling
+
+## Directory Structure
+
+### Core Packages
+- `packages/react/` - Core React APIs and Components
+- `packages/react-dom/` - React DOM Renderer
+- `packages/react-reconciler/` - Reconciliation Algorithm
+- `packages/scheduler/` - Task Scheduling
+- `packages/shared/` - Shared Utilities
+- `packages/react-is/` - Type Checking
+- `packages/use-sync-external-store/` - External Store Integration
+
+### Build and Release (`scripts/`)
+1. [**Rollup System**](scripts/rollup/README.md)
+   - Bundle creation and optimization
+   - Platform-specific builds
+   - Development and production builds
+
+2. [**Babel Configuration**](scripts/babel/README.md)
+   - Code transformation
+   - JSX processing
+   - Feature flags
+
+3. [**Release Management**](scripts/release/README.md)
+   - Release channels (Stable, Experimental, Canary)
+   - Version management
+   - Publishing workflow
+
+### Development Tools
+1. [**DevTools**](scripts/devtools/README.md)
+   - Component inspection
+   - Performance profiling
+   - Debugging tools
+
+2. [**ESLint Configuration**](scripts/eslint/README.md)
+   - Code style enforcement
+   - Best practices
+   - Error prevention
+
+3. [**Flow Type System**](scripts/flow/README.md)
+   - Type checking
+   - Type definitions
+   - Platform-specific types
+
+### Testing and Performance
+1. [**Jest Framework**](scripts/jest/README.md)
+   - Unit testing
+   - Integration testing
+   - Test utilities
+
+2. [**Benchmarking**](scripts/bench/README.md)
+   - Performance testing
+   - Metrics collection
+   - Regression detection
+
+3. [**Performance Counters**](scripts/perf-counters/README.md)
+   - Runtime metrics
+   - Memory monitoring
+   - Event tracking
+
+## Development Workflow
+
+```mermaid
+sequenceDiagram
+    participant Dev
+    participant Build
+    participant Test
+    participant Release
+    
+    Dev->>Build: Make changes
+    Build->>Test: Build bundles
+    Test->>Dev: Run tests
+    Dev->>Release: Prepare release
+    Release->>Dev: Publish
+```
+
+## Getting Started
+
+1. **Setup Development Environment**
+```bash
+# Clone repository
+git clone https://github.com/facebook/react.git
+cd react
+
+# Install dependencies
+yarn install
+
+# Build React
+yarn build
+```
+
+2. **Run Tests**
+```bash
+# Run all tests
+yarn test
+
+# Run specific tests
+yarn test --pattern=ComponentName
+```
+
+3. **Development Build**
+```bash
+# Start development build
+yarn dev
+
+# Build with specific features
+yarn build --features=concurrent
+```
 
 ## Contributing
 
-The main purpose of this repository is to continue evolving React core, making it faster and easier to use. Development of React happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving React.
+### Development Process
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
 
-### [Code of Conduct](https://code.fb.com/codeofconduct)
+### Code Quality
+- Follow ESLint rules
+- Add Flow types
+- Write tests
+- Update documentation
 
-Facebook has adopted a Code of Conduct that we expect project participants to adhere to. Please read [the full text](https://code.fb.com/codeofconduct) so that you can understand what actions will and will not be tolerated.
+### Testing Guidelines
+1. Unit test components
+2. Add integration tests
+3. Include performance tests
+4. Test across platforms
 
-### [Contributing Guide](https://legacy.reactjs.org/docs/how-to-contribute.html)
+## Architecture Deep Dive
 
-Read our [contributing guide](https://legacy.reactjs.org/docs/how-to-contribute.html) to learn about our development process, how to propose bugfixes and improvements, and how to build and test your changes to React.
+### Core Concepts
 
-### [Good First Issues](https://github.com/facebook/react/labels/good%20first%20issue)
+```mermaid
+graph LR
+    A[React Core] --> B[Virtual DOM]
+    B --> C[Reconciliation]
+    C --> D[Renderers]
+    D --> E[Platform]
+```
 
-To help you get your feet wet and get you familiar with our contribution process, we have a list of [good first issues](https://github.com/facebook/react/labels/good%20first%20issue) that contain bugs that have a relatively limited scope. This is a great place to get started.
+### Build Process
 
-### License
+```mermaid
+graph TD
+    A[Source] --> B[Babel]
+    B --> C[Rollup]
+    C --> D[Optimization]
+    D --> E[Distribution]
+```
 
-React is [MIT licensed](./LICENSE).
+### Test Coverage
+
+```mermaid
+graph LR
+    A[Tests] --> B[Unit]
+    A --> C[Integration]
+    A --> D[Performance]
+    A --> E[Types]
+```
+
+## Additional Resources
+
+- [React Documentation](https://react.dev/docs/getting-started)
+- [Contributing Guide](CONTRIBUTING.md)
+- [React Blog](https://react.dev/blog)
+- [GitHub Repository](https://github.com/facebook/react)
+
+## License
+
+React is MIT licensed. See the [LICENSE](LICENSE) file for details.
