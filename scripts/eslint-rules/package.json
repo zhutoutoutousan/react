@@ -1,4 +1,7 @@
 {
   "name": "eslint-plugin-react-internal",
-  "version": "0.0.0"
+  "version": "0.0.0",
+  "dependencies": {
+    "eslint-plugin-react-internal": "file:"
+  }
 }

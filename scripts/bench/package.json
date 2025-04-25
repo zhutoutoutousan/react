@@ -16,6 +16,7 @@
     "minimist": "^1.2.3",
     "ncp": "^2.0.0",
     "nodegit": "^0.18.3",
+    "react-benchmark": "file:",
     "rimraf": "^2.6.1",
     "stats-analysis": "^2.0.0"
   }

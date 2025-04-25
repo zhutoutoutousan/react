@@ -1,103 +1,263 @@
-# `react-is`
+# React Is Package
 
-This package allows you to test arbitrary values and see if they're a particular React element type.
+The `react-is` package provides runtime type checking capabilities for React elements and components, allowing you to determine the type of React objects and validate their structure.
 
-## Installation
+## Architecture
 
-```sh
-# Yarn
-yarn add react-is
-
-# NPM
-npm install react-is
+```mermaid
+graph TD
+    subgraph Core
+        A[React Is] --> B[Type Checking]
+        A --> C[Element Validation]
+        A --> D[Component Detection]
+    end
+    
+    subgraph Types
+        E[Type Checking] --> F[Elements]
+        E --> G[Components]
+        E --> H[Fragments]
+        
+        I[Components] --> J[Class]
+        I --> K[Function]
+        I --> L[Forward Ref]
+    end
+    
+    subgraph Validation
+        M[Validation] --> N[Props]
+        M --> O[Children]
+        M --> P[Context]
+    end
 ```
+
+## Key Components
+
+### 1. Type Checking
+```mermaid
+graph TD
+    A[Type Check] --> B[isElement]
+    A --> C[isValidElementType]
+    A --> D[isFragment]
+    A --> E[isPortal]
+```
+
+- **isElement**: React element validation
+- **isValidElementType**: Component type checking
+- **isFragment**: Fragment detection
+- **isPortal**: Portal identification
+
+### 2. Component Types
+```mermaid
+graph LR
+    A[Component] --> B[isComponent]
+    B --> C[isClassComponent]
+    C --> D[isFunctionComponent]
+```
+
+1. **Class Components**
+   - Class detection
+   - Inheritance checking
+   - Lifecycle validation
+
+2. **Function Components**
+   - Function detection
+   - Hook compatibility
+   - Props validation
+
+### 3. Special Types
+```mermaid
+graph TD
+    A[Special] --> B[Context]
+    A --> C[Provider]
+    A --> D[Consumer]
+    
+    B --> E[isContextProvider]
+    C --> F[isContextConsumer]
+    D --> G[isForwardRef]
+```
+
+- **Context**: Context object detection
+- **Provider/Consumer**: Context parts
+- **Forward Ref**: Ref forwarding
 
 ## Usage
 
-### Determining if a Component is Valid
+### Basic Type Checking
+```javascript
+import {
+  isElement,
+  isValidElementType,
+  isFragment
+} from 'react-is';
 
-```js
-import React from "react";
-import * as ReactIs from "react-is";
+// Check if something is a React element
+const element = <div>Hello</div>;
+console.log(isElement(element)); // true
+
+// Check if something can be a React component
+const Component = () => <div>Hello</div>;
+console.log(isValidElementType(Component)); // true
+
+// Check if something is a Fragment
+const fragment = <React.Fragment><div>Hello</div></React.Fragment>;
+console.log(isFragment(fragment)); // true
+```
+
+### Component Type Checking
+```javascript
+import {
+  isValidElementType,
+  typeOf
+} from 'react-is';
 
 class ClassComponent extends React.Component {
   render() {
-    return React.createElement("div");
+    return <div>Hello</div>;
   }
 }
 
-const FunctionComponent = () => React.createElement("div");
+function FunctionComponent() {
+  return <div>Hello</div>;
+}
 
-const ForwardRefComponent = React.forwardRef((props, ref) =>
-  React.createElement(Component, { forwardedRef: ref, ...props })
-);
-
-const Context = React.createContext(false);
-
-ReactIs.isValidElementType("div"); // true
-ReactIs.isValidElementType(ClassComponent); // true
-ReactIs.isValidElementType(FunctionComponent); // true
-ReactIs.isValidElementType(ForwardRefComponent); // true
-ReactIs.isValidElementType(Context.Provider); // true
-ReactIs.isValidElementType(Context.Consumer); // true
+console.log(typeOf(<ClassComponent />)); // Symbol(react.element)
+console.log(isValidElementType(ClassComponent)); // true
+console.log(isValidElementType(FunctionComponent)); // true
 ```
 
-### Determining an Element's Type
+### Context Checking
+```javascript
+import {
+  isContextProvider,
+  isContextConsumer
+} from 'react-is';
 
-#### Context
+const MyContext = React.createContext(null);
 
-```js
-import React from "react";
-import * as ReactIs from 'react-is';
-
-const ThemeContext = React.createContext("blue");
-
-ReactIs.isContextConsumer(<ThemeContext.Consumer />); // true
-ReactIs.isContextProvider(<ThemeContext.Provider />); // true
-ReactIs.typeOf(<ThemeContext.Provider />) === ReactIs.ContextProvider; // true
-ReactIs.typeOf(<ThemeContext.Consumer />) === ReactIs.ContextConsumer; // true
+console.log(isContextProvider(<MyContext.Provider value={null} />)); // true
+console.log(isContextConsumer(<MyContext.Consumer>{() => null}</MyContext.Consumer>)); // true
 ```
 
-#### Element
+## Development
 
-```js
-import React from "react";
-import * as ReactIs from 'react-is';
+### Building
+```bash
+# Build the package
+yarn build
 
-ReactIs.isElement(<div />); // true
-ReactIs.typeOf(<div />) === ReactIs.Element; // true
+# Build with profiling
+yarn build --profiling
 ```
 
-#### Fragment
+### Testing
+```bash
+# Run all tests
+yarn test
 
-```js
-import React from "react";
-import * as ReactIs from 'react-is';
-
-ReactIs.isFragment(<></>); // true
-ReactIs.typeOf(<></>) === ReactIs.Fragment; // true
+# Test specific feature
+yarn test --pattern="type"
 ```
 
-#### Portal
+## Architecture Details
 
-```js
-import React from "react";
-import ReactDOM from "react-dom";
-import * as ReactIs from 'react-is';
-
-const div = document.createElement("div");
-const portal = ReactDOM.createPortal(<div />, div);
-
-ReactIs.isPortal(portal); // true
-ReactIs.typeOf(portal) === ReactIs.Portal; // true
+### Type System
+```mermaid
+graph TD
+    A[Type] --> B[Element]
+    A --> C[Component]
+    A --> D[Special]
+    B --> E[Props]
+    C --> F[Instance]
+    D --> G[Context]
 ```
 
-#### StrictMode
-
-```js
-import React from "react";
-import * as ReactIs from 'react-is';
-
-ReactIs.isStrictMode(<React.StrictMode />); // true
-ReactIs.typeOf(<React.StrictMode />) === ReactIs.StrictMode; // true
+### Validation Flow
+```mermaid
+graph LR
+    A[Input] --> B[Type Check]
+    B --> C[Validation]
+    C --> D[Result]
 ```
+
+## Interactive Knowledge Testing
+
+### Quiz: Type Checking Basics
+
+1. What is the main purpose of react-is?
+   - [ ] Component creation
+   - [x] Type checking
+   - [ ] State management
+   - [ ] Event handling
+
+2. What can be checked with isElement?
+   - [ ] Only DOM elements
+   - [x] Any React element
+   - [ ] Only components
+   - [ ] Only HTML
+
+3. What does isValidElementType check?
+   - [ ] Element rendering
+   - [x] Component type validity
+   - [ ] Props types
+   - [ ] Children types
+
+### Quiz: Component Types
+
+1. How to check for class components?
+   - [ ] isClass()
+   - [x] typeOf()
+   - [ ] instanceof
+   - [ ] isClassComponent()
+
+2. What identifies a function component?
+   - [ ] Function type
+   - [x] Return value
+   - [ ] Props object
+   - [ ] Name prefix
+
+3. What can be validated with typeOf?
+   - [ ] Only elements
+   - [x] Elements and types
+   - [ ] Only components
+   - [ ] Only DOM
+
+### Quiz: Special Types
+
+1. How to check for Context.Provider?
+   - [ ] isProvider
+   - [x] isContextProvider
+   - [ ] isContext
+   - [ ] checkProvider
+
+2. What identifies a Fragment?
+   - [ ] null children
+   - [x] Symbol type
+   - [ ] Array return
+   - [ ] Empty props
+
+3. What is a valid element type?
+   - [ ] Only classes
+   - [x] Classes and functions
+   - [ ] Only functions
+   - [ ] Only strings
+
+## Contributing
+
+When contributing to React Is:
+
+1. Follow the [Contributing Guide](../CONTRIBUTING.md)
+2. Add test coverage
+3. Consider type system impact
+4. Maintain backward compatibility
+5. Update documentation
+
+## Stability
+
+- 🟢 **Stable**: Core type checking
+- 🟡 **Experimental**: New types
+- 🔴 **Internal**: Facebook-specific
+
+## Documentation
+
+- [Type Checking](https://react.dev/types)
+- [Component Types](https://react.dev/types/components)
+- [Special Types](https://react.dev/types/special)

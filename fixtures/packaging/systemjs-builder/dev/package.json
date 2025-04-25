@@ -2,7 +2,8 @@
   "private": true,
   "name": "systemjs-dev-fixture",
   "dependencies": {
-    "systemjs-builder": "^0.15.34"
+    "systemjs-builder": "^0.15.34",
+    "systemjs-dev-fixture": "file:"
   },
   "scripts": {
     "build": "rm -f output.js && node build.js"

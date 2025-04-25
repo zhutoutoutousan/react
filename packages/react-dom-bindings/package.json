@@ -19,5 +19,8 @@
   "homepage": "https://react.dev/",
   "peerDependencies": {
     "react": "^19.0.0"
+  },
+  "dependencies": {
+    "react-dom-bindings": "file:"
   }
 }

@@ -28,5 +28,8 @@
     "README.md",
     "index.js",
     "cjs/"
-  ]
+  ],
+  "dependencies": {
+    "jest-react": "file:"
+  }
 }

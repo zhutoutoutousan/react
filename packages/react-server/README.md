@@ -1,3 +1,250 @@
+# React Server Package
+
+The `react-server` package implements React's Server Components and streaming capabilities, enabling efficient server-side rendering and progressive hydration.
+
+## Architecture
+
+```mermaid
+graph TD
+    subgraph Core
+        A[React Server] --> B[Server Components]
+        A --> C[Streaming]
+        A --> D[Flight Protocol]
+    end
+    
+    subgraph Components
+        E[Server Components] --> F[No Client State]
+        E --> G[Direct DB Access]
+        E --> H[Zero Bundle]
+        
+        I[Client Components] --> J[Interactive]
+        I --> K[State Management]
+        I --> L[Effects]
+    end
+    
+    subgraph Streaming
+        M[Streaming] --> N[Progressive]
+        M --> O[Selective]
+        M --> P[Parallel]
+    end
+```
+
+## Key Components
+
+### 1. Server Components
+```mermaid
+graph TD
+    A[Server Components] --> B[Zero Bundle]
+    A --> C[Direct Data]
+    A --> D[No Effects]
+    A --> E[Async]
+```
+
+- **Zero Bundle**: No JavaScript sent to client
+- **Direct Data**: Database/file access
+- **No Effects**: No client-side effects
+- **Async**: Native async/await support
+
+### 2. Streaming
+```mermaid
+graph LR
+    A[Streaming] --> B[Initial HTML]
+    B --> C[Progressive Loading]
+    C --> D[Selective Hydration]
+    D --> E[Interactive]
+```
+
+1. **Initial HTML**
+   - Fast first paint
+   - Placeholder content
+   - Loading states
+
+2. **Progressive Loading**
+   - Stream chunks
+   - Priority-based
+   - Error boundaries
+
+### 3. Flight Protocol
+```mermaid
+graph TD
+    A[Flight] --> B[Serialization]
+    A --> C[Deserialization]
+    A --> D[Incremental]
+    A --> E[Binary]
+```
+
+- **Serialization**: Component tree to bytes
+- **Deserialization**: Bytes to components
+- **Incremental**: Partial updates
+- **Binary**: Efficient format
+
+## Usage
+
+### Server Component
+```javascript
+// Server Component
+async function UserProfile({ userId }) {
+  const user = await db.users.get(userId);
+  return (
+    <div>
+      <h1>{user.name}</h1>
+      <p>{user.bio}</p>
+    </div>
+  );
+}
+```
+
+### Client Component
+```javascript
+'use client';
+
+// Client Component
+function InteractiveButton() {
+  const [count, setCount] = useState(0);
+  return (
+    <button onClick={() => setCount(c => c + 1)}>
+      Count: {count}
+    </button>
+  );
+}
+```
+
+### Streaming
+```javascript
+async function StreamingPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <UserProfile userId={123} />
+      <Comments userId={123} />
+    </Suspense>
+  );
+}
+```
+
+## Development
+
+### Building
+```bash
+# Build the package
+yarn build
+
+# Build with profiling
+yarn build --profiling
+```
+
+### Testing
+```bash
+# Run all tests
+yarn test
+
+# Test specific feature
+yarn test --pattern="streaming"
+```
+
+## Architecture Details
+
+### Component Model
+```mermaid
+graph TD
+    A[Component Model] --> B[Server]
+    A --> C[Client]
+    B --> D[Async]
+    C --> E[Interactive]
+```
+
+### Streaming Model
+```mermaid
+graph LR
+    A[Request] --> B[Stream]
+    B --> C[Chunks]
+    C --> D[Hydrate]
+    D --> E[Interactive]
+```
+
+## Interactive Knowledge Testing
+
+### Quiz: Server Components
+
+1. What is the main benefit of Server Components?
+   - [ ] Client-side interactivity
+   - [x] Zero JavaScript bundle
+   - [ ] Real-time updates
+   - [ ] Client-side state
+
+2. Which of these is NOT allowed in Server Components?
+   - [ ] Async/await
+   - [ ] Database queries
+   - [x] useState
+   - [ ] File system access
+
+3. How do you mark a component as a Client Component?
+   - [ ] 'use server' directive
+   - [x] 'use client' directive
+   - [ ] export default
+   - [ ] async function
+
+### Quiz: Streaming
+
+1. What is progressive loading?
+   - [x] Loading content in chunks
+   - [ ] Loading all at once
+   - [ ] Client-side only
+   - [ ] Server-side only
+
+2. What component is used for loading states?
+   - [ ] ErrorBoundary
+   - [x] Suspense
+   - [ ] Fragment
+   - [ ] Portal
+
+3. What is selective hydration?
+   - [ ] Hydrating everything at once
+   - [x] Hydrating only what's needed
+   - [ ] No hydration
+   - [ ] Full page reload
+
+### Quiz: Flight Protocol
+
+1. What is the Flight Protocol used for?
+   - [ ] HTTP requests
+   - [x] Component serialization
+   - [ ] Database queries
+   - [ ] File system access
+
+2. What format does Flight use?
+   - [ ] JSON
+   - [ ] XML
+   - [x] Binary
+   - [ ] Text
+
+3. What is incremental streaming?
+   - [ ] Full page reload
+   - [x] Partial updates
+   - [ ] No updates
+   - [ ] Client-side only
+
+## Contributing
+
+When contributing to React Server:
+
+1. Follow the [Contributing Guide](../CONTRIBUTING.md)
+2. Understand server/client boundaries
+3. Consider performance implications
+4. Maintain backward compatibility
+5. Update documentation
+
+## Stability
+
+- 🟢 **Stable**: Core server components
+- 🟡 **Experimental**: New features
+- 🔴 **Internal**: Facebook-specific
+
+## Documentation
+
+- [Server Components](https://react.dev/server-components)
+- [Streaming](https://react.dev/streaming)
+- [Flight Protocol](https://react.dev/flight)
+
 # react-server
 
 This is an experimental package for creating custom React streaming server renderers.

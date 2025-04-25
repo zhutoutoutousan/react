@@ -40,5 +40,8 @@
   "devDependencies": {
     "react-17": "npm:react@^17",
     "react-dom-17": "npm:react-dom@^17"
+  },
+  "dependencies": {
+    "use-sync-external-store": "file:"
   }
 }
